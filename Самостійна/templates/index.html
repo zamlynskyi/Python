@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Відгуки</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: silver;
+            margin: 30px;
+            padding: 30px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: #fff;
+            box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        label, input, select {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: solid 1px silver;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Відгуки</h1>
+    <div class="container">
+        <form method="POST">
+            <label for="name">Ім'я та прізвище:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="review">Відгук:</label>
+            <textarea id="review" name="review" required></textarea><br><br>
+
+            <input type="submit" value="Додати відгук">
+        </form>
+
+        <br>
+        <h2>Список відгуків:</h2>
+        <ul>
+            {% for name, review in reviews %}
+            <li>
+                <strong>Ім'я:</strong> {{ name }}<br>
+                <strong>Відгук:</strong> {{ review }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
