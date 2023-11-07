@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Опитування</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: white;
+            margin: 30px;
+            padding: 30px;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            background-color: black;
+            box-shadow: 10px 5px 5px rgb(128, 128, 128);
+            margin-top: 50px;
+        }
+        label, input, select {
+            margin-bottom: 15px;
+        }
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 30px;
+            border: solid 1px silver;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 5px 5px 3px silver;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        h1 {
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Опитування</h1><br>
+        <form action="/cgi-bin/form.py" method="post">
+            <label for="name">Ім'я та прізвище:</label><br>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label>Який ваш вік?</label><br>
+            <input type="radio" id="0-17" name="age" value="0-17">
+            <label for="0-17">0-17</label><br>
+
+            <input type="radio" id="18-24" name="age" value="18-24">
+            <label for="18-24">18-24</label><br>
+
+            <input type="radio" id="25-34" name="age" value="25-34">
+            <label for="25-34">25-34</label><br>
+
+            <input type="radio" id="35-44" name="age" value="35-44">
+            <label for="35-44">35-44</label><br>
+
+            <input type="radio" id="45-54" name="age" value="45-54">
+            <label for="45-54">45-54</label><br>
+
+            <input type="radio" id="55-64" name="age" value="55-64">
+            <label for="55-64">55-64</label><br>
+
+            <input type="radio" id="65+" name="age" value="65+">
+            <label for="65+">65+</label><br><br>
+
+            <label for="gender">Яка ваша стать?</label><br>
+            <select id="gender" name="gender">
+                <option value="none">Волію не вказувати</option>
+                <option value="man">Чоловік</option>
+                <option value="woman">Жінка</option>
+            </select><br><br>
+
+            <label>Які з наступних факторів впливають на ваше рішення придбати певний товар?</label><br>
+            <input type="checkbox" id="price" name="interests" value="Ціна">
+            <label for="price">Ціна</label><br>
+
+            <input type="checkbox" id="quality" name="interests" value="Якість">
+            <label for="quality">Якість</label><br>
+
+            <input type="checkbox" id="brand" name="interests" value="Бренд">
+            <label for="brand">Бренд</label><br><br>
+
+            <label for="review">Як ми можемо покращити наш продукт?</label><br>
+            <textarea id="review" name="review" required></textarea><br><br><br>
+
+            <input type="submit" value="Надіслати">
+        </form>
+    </div>
+</body>
+</html>
