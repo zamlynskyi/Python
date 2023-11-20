@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Zamlynskyi Ivan{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div>
+            <h2>Замлинський Іван</h2>
+        </div>
+         <nav>
+            <ul>
+                <li><a href="{{ url_for('portfolio') }}">Головна</a></li>
+                <li><a href="{{ url_for('skills') }}">Скіли</a></li>
+                <li><a href="{{ url_for('resume') }}">Резюме</a></li>
+                <li><a href="{{ url_for('contacts') }}">Контакти</a></li>
+                <li><a href="{{ url_for('login') }}">Логін</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <footer>
+        &copy; 2023 Copyright
+        <p>OS: {{ os_info }}</p>
+        <p>User Agent: {{ user_agent }}</p>
+        <p>Current Time: {{ current_time }}</p>
+    </footer>
+</body>
+</html>

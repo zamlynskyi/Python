@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Логін{% endblock %}
+
+{% block content %}
+
+<style>
+    .login-form {
+        width: 300px; /* Ширина форми */
+        margin: auto; /* Автоматичне центрування відносно вікна браузера */
+        text-align: center; /* Центрування тексту */
+    }
+
+    .login-form fieldset {
+        border: 2px solid #ddd; /* Спрощена рамка для поля введення */
+        padding: 10px;
+    }
+
+    .login-form legend {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .login-form label {
+        display: block; /* Відображення міток на новому рядку */
+        margin-bottom: 8px;
+    }
+
+    .input_username,
+    .input_password {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box; /* Забезпечення вірного обчислення ширини */
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 2px solid #ddd;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        background-color: #2980b9;
+    }
+</style>
+
+<form action="{{ url_for('login') }}" method="post" class="login-form">
+    <h2>Логін</h2>
+
+    <fieldset>
+        <legend>Введіть дані:</legend><br>
+
+        <label for="username">Логін:</label>
+        <input type="text" id="username" name="username" class="input_username" required><br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" class="input_password" required><br><br>
+
+    </fieldset>
+    <br>
+    <input type="submit" value="Вхід" class="btn">
+</form>
+
+{% endblock %}
