@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Навички{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="wrapper">
+            <h2>Мої навички (скіли)</h2>
+        </div>
+    </div>
+    <table class="skills_table">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Навичка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for skill in skills %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="{{ url_for('skills', id=loop.index0) }}">{{ skill }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <h2 class="h2_skills">
+        Кількість скілів: {{ total_skills }}
+    </h2>
+{% endblock %}

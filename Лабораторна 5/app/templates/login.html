@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Логін{% endblock %}
+
+{% block content %}
+<style>
+    .login-form {
+        width: 300px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .login-form fieldset {
+        border: 2px solid #ddd;
+        padding: 10px;
+    }
+
+    .login-form legend {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .login-form label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .input_username,
+    .input_password,
+    .remember_btn {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .btn_submit {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 2px solid #ddd;
+        cursor: pointer;
+    }
+
+    .btn_submit:hover {
+        background-color: #2980b9;
+    }
+</style>
+
+<form method="POST" class="login-form" novalidate>
+    <h1 class="login_text">Логін</h1>
+    {{ form.csrf_token }}
+    {{ render_field(form.username, class="input_username") }}
+    {{ render_field(form.password, class="input_password") }}
+    {{ render_field(form.remember, class="remember_btn") }}
+    {{ form.submit(class="btn_submit") }}
+</form>
+
+{% endblock %}
+
+{% macro render_field(field, class='') %}
+    <div>
+        <label>{{ field.label }}</label>
+        {% if field.errors %}
+            <ul>
+                {% for error in field.errors %}
+                    <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {{ field(class=class) }}
+    </div>
+{% endmacro %}
