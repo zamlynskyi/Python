@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Редагування Todo{% endblock %}
+
+{% block content %}
+    <style>
+        .todo_add {
+            width: 300px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .todo_add form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .inputs {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .btn_submit {
+            width: 100%;
+            padding: 10px;
+            background-color: silver;
+            color: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+        }
+
+        .btn_submit:hover {
+            background-color: #2980b9;
+        }
+
+        .todo_table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .todo_table th, .todo_table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .todo_table th {
+            background-color: #1B1C1E;
+        }
+
+        .btn-link {
+            background: none;
+            border: none;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            color: #2980b9;
+        }
+    </style>
+
+    <div class="todo_add">
+        <h1>Редагування Todo</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            {{ form.todo_item.label }} {{ form.todo_item(class="inputs") }} <br>
+            {{ form.description.label }} {{ form.description(class="inputs") }} <br>
+            {{ form.status.label }} {{ form.status }} <br><br>
+            {{ form.submit(class="btn_submit") }}
+        </form>
+    </div>
+{% endblock %}
