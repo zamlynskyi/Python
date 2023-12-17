@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Профіль{% endblock %}
+
+{% block content %}
+<style>
+    .center_block {
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        background-color: #333;
+        color: #fff;
+    }
+
+    .names {
+        color: #2980b9;
+    }
+
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 30px auto;
+        display: block;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+</style>
+
+<div class="center_block">
+    <img class="profile-image" src="{{ url_for('static', filename='images/default.jpg') }}" alt="User Photo">
+    <h1 class="names">Профіль</h1>
+    <p>Ви увійшли як: {{ current_user.username }}</p>
+</div>
+{% endblock %}
