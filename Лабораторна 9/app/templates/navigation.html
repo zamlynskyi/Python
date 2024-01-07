@@ -1,0 +1,31 @@
+{% set navigation_items = {
+    "Головна": url_for('portfolio'),
+    "Скіли": url_for('skills'),
+    "Резюме": url_for('resume'),
+    "Завдання": url_for('todo'),
+    "Відгуки": url_for('feedback'),
+    "Користувачі": url_for('users'),
+    "Контакти": url_for('contacts'),
+    "Логін": url_for('login'),
+} %}
+
+<ul>
+    {% for name, url in navigation_items.items() %}
+        {% if name == "Логін" %}
+            {% if current_user.is_authenticated %}
+                <li>
+                    <span class="header_list"><a href="{{ url_for('account') }}">Профіль</a></span>
+                    <a href="{{ url_for('logout') }}">Вихід</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ url_for('login') }}">Вхід</a>
+                </li>
+            {% endif %}
+        {% else %}
+            <li>
+                <a href="{{ url }}">{{ name }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
