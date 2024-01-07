@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Додати пост{% endblock %}
+
+{% block content %}
+<style>
+    .post_table {
+        width: 500px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .post_table form {
+        width: 100%;
+        text-align: left;
+    }
+
+    .inputs {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    .btn_submit {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 2px solid #ddd;
+        cursor: pointer;
+    }
+
+    .btn_submit:hover {
+        background-color: #2980b9;
+    }
+
+    .post_table th, .post_table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .post_table th {
+        background-color: #1B1C1E;
+    }
+
+    .btn-link {
+        background: none;
+        border: none;
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .btn-link:hover {
+        color: #2980b9;
+    }
+</style>
+
+<div class="post_table">
+    <h1 class="names">Додати пост</h1><hr><br>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.title.label (class="form-label") }}
+        {{ form.title(class="form-control inputs") }} <br>
+        {{ form.text.label (class="form-label") }}
+        {{ form.text(class="form-control inputs") }} <br>
+        {{ form.image.label (class="form-label") }}
+        {{ form.image(type="file", class="form-control inputs") }} <br>
+        {{ form.type.label (class="form-label") }}
+        {{ form.type(class="form-control inputs") }} <br>
+        {{ form.enabled.label (class="form-label") }}
+        {{ form.enabled }} <br><br>
+        {{ form.submit(class="btn btn-primary btn_submit") }}
+    </form>
+    <br>
+    <hr>
+    <br>
+</div>
+{% endblock %}
