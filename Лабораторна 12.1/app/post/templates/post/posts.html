@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Список постів{% endblock %}
+
+{% block content %}
+<style>
+    .posts-view {
+        text-align: center;
+    }
+
+    .add-posts {
+        width: 500px;
+        margin: auto;
+        text-align: center;
+        font-size: 24px;
+        color: white;
+        background-color: #1B1C1E;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .add-posts:hover {
+        background-color: #2980b9;
+    }
+
+    .row {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        flex-grow: 1;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 3px solid #ddd;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .pagination {
+        margin-top: 20px;
+    }
+
+    .page-item {
+        display: inline-block;
+        padding: 8px;
+        margin: 0 4px;
+        text-align: center;
+    }
+
+    .page-link {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .page-link:hover {
+        color: #2980b9;
+    }
+
+    .disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+    .active {
+        background-color: #1B1C1E;
+    }
+</style>
+<br>
+<div class="posts-view">
+    <a href="{{ url_for('post_bp.create_post') }}" class="btn btn-primary add-posts"><strong>Додати пост</strong></a>
+    <br><br><hr>
+    <div class="row">
+        {% for post in posts.items %}
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/posts/' + post.image) }}" alt="Post Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.type.value }} - {{ "Відкритий" if post.enabled else "Закритий" }}</p>
+                        <a href="{{ url_for('post_bp.view_post', id=post.id) }}" class="btn btn-primary">Переглянути</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+    <nav aria-label=''>
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not posts.has_prev %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('post_bp.posts', page=posts.prev_num) }}"><</a>
+            </li>
+
+            {% for page_num in posts.iter_pages()  %}
+                <li class="page-item {% if page_num == posts.page %}active{% endif %}">
+                    <a class="page-link" href="{{ url_for('post_bp.posts', page=page_num ) }}">{{page_num}}</a>
+                </li>
+            {% endfor %}
+
+            <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('post_bp.posts', page=posts.next_num) }}">></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endblock %}

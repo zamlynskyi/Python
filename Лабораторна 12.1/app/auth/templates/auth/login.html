@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<style>
+    .login_form {
+        width: 500px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .login_form form {
+        width: 100%;
+        text-align: left;
+    }
+
+    .inputs {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        margin-left: -40px;
+    }
+
+    .form-check-input {
+        margin-top: 5px;
+        margin-left: -40px;
+    }
+
+    .btn_submit {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 2px solid #ddd;
+        cursor: pointer;
+    }
+
+    .btn_submit:hover {
+        background-color: #2980b9;
+    }
+</style>
+
+<form method="POST" class="login_form" novalidate>
+    <h1 class="login_text">Логін</h1>
+    <hr>
+    {{ form.csrf_token }}
+    {{ render_field(form.username, class="inputs") }}
+    {{ render_field(form.password, class="inputs") }}
+    {{ render_field(form.remember, class="form-check-input") }} <br><br>
+    {{ form.submit(class="btn_submit") }} <br><hr><br>
+    <p class="small-text">У вас немає облікового запису? <a class="small-text" href="{{ url_for('auth.register') }}">Зареєструйтесь тут</a></p>
+</form>
+
+{% endblock %}
+
+{% macro render_field(field, class='') %}
+    <div>
+        <dt>{{ field.label }}</dt>
+        {% if field.errors %}
+            <dd>
+                {{ field(class=class) }}
+                <ul>
+                    {% for error in field.errors %}
+                        <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+        {% else %}
+            <dd>{{ field(class=class) }}</dd>
+        {% endif %}
+    </div>
+{% endmacro %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Перегляд поста{% endblock %}
+
+{% block content %}
+<style>
+    .post_table {
+        width: 500px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .post_table form {
+        width: 100%;
+        text-align: left;
+    }
+
+    .names {
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+
+    .inputs {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 30px;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="post_table">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-9">
+            <h1>{{ post.title }}</h1><hr><br>
+            <img src="{{ url_for('static', filename='images/posts/' + post.image) }}" alt="Post Image">
+            <p>Тип: {{ post.type.value }}</p>
+            <p>Текст: {{ post.text }}</p>
+            <p>Створений: {{ post.created }}</p>
+            <br><br>
+            {% if current_user.is_authenticated and current_user.id == post.user_id %}
+                <strong><a href="{{ url_for('post_bp.update_post', id=post.id) }}">Редагувати</a></strong>
+                <strong><a href="{{ url_for('post_bp.delete_post', id=post.id) }}">Видалити</a></strong>
+            <br><br><hr><br>
+            {% endif %}
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
