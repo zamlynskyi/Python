@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Todo{% endblock %}
+
+{% block content %}
+    <style>
+        .todo {
+            width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .todo form {
+            width: 100%;
+            text-align: left;
+        }
+
+        .names {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .inputs {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .btn_submit {
+            width: 100%;
+            padding: 10px;
+            background-color: silver;
+            color: white;
+            border: 2px solid #ddd;
+            cursor: pointer;
+        }
+
+        .btn_submit:hover {
+            background-color: #2980b9;
+        }
+
+        .todo_table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .todo_table th, .todo_table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .todo_table th {
+            background-color: #1B1C1E;
+        }
+
+        .add-todo {
+            width: 500px;
+            margin: auto;
+            text-align: center;
+            font-size: 24px;
+            color: white;
+            background-color: #1B1C1E;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .add-todo:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            background-color: silver;
+            color: white;
+            border: 3px solid #ddd;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-link {
+            background: none;
+            border: none;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            color: #2980b9;
+        }
+    </style>
+
+    <br>
+    <a href="{{ url_for('todo.create_todo') }}" class="btn btn-primary add-todo"><strong>Додати завдання</strong></a>
+    <br><br><hr>
+    <div class="todo">
+        <h1 class="names">Список Завдань</h1>
+        <hr>
+        <table class="todo_table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Назва завдання</th>
+                    <th>Опис</th>
+                    <th>Статус</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for todo in todos %}
+                    <tr>
+                        <td>{{ todo.id }}</td>
+                        <td>{{ todo.todo_item }}</td>
+                        <td>{{ todo.description }}</td>
+                        <td>{{ 'Виконано' if todo.status else 'Не виконано' }}
+                        <td>
+                        <a href="{{ url_for('todo.edit_todo', id=todo.id) }}">Редагувати</a><br><br>
+                        <a href="{{ url_for('todo.delete_todo', id=todo.id) }}">Видалити</a><br><br>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <hr>
+        <br>
+    </div>
+{% endblock %}
