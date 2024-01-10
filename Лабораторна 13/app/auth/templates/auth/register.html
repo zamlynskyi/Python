@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<style>
+    .register_form {
+        width: 500px;
+        margin: auto;
+        text-align: center;
+    }
+
+    .register_form form {
+        width: 100%;
+        text-align: left;
+    }
+
+    .register_text {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .inputs {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        margin-left: -40px;
+    }
+
+    .btn_submit {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 2px solid #ddd;
+        cursor: pointer;
+    }
+
+    .btn_submit:hover {
+        background-color: #2980b9;
+    }
+
+    .small_text {
+        font-size: 14px;
+    }
+
+    .list-group-item-danger {
+        color: red;
+    }
+</style>
+
+<form method="POST" class="register_form" novalidate>
+    <h1 class="register_text">Реєстрація</h1>
+    <hr>
+    {{ form.csrf_token }}
+    {{ render_field(form.username, class="inputs") }}
+    {{ render_field(form.email, class="inputs") }}
+    {{ render_field(form.password, class="inputs") }}
+    {{ render_field(form.confirm_password, class="inputs") }}
+    {{ form.submit(class="btn_submit") }}<br><hr><br>
+    <p class="small_text">У вас уже є обліковий запис? <a class="small_text" href="{{ url_for('auth.login') }}">Увійти тут</a></p>
+</form>
+
+{% endblock %}
+
+{% macro render_field(field, class='') %}
+    <div>
+        <dt>{{ field.label }}</dt>
+        {% if field.errors %}
+            <dd>
+                {{ field(class=class) }}
+                <ul>
+                    {% for error in field.errors %}
+                        <li class="list-group-item list-group-item-danger">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+        {% else %}
+            <dd>{{ field(class=class) }}</dd>
+        {% endif %}
+    </div>
+{% endmacro %}
