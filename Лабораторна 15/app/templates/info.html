@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Info{% endblock %}
+
+{% block content %}
+
+<style>
+    .info-main-div {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        font-family: 'Monospace', monospace;
+    }
+
+    .main_text {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    form {
+        border: 2px solid #ddd;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: silver;
+        color: white;
+        border: 2px solid #ddd;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    .table-container {
+        width: 100%;
+        margin: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        word-break: break-all;
+    }
+
+    th {
+        background-color: #333;
+        color: white;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .info-main-div a {
+        text-decoration: none;
+        color: #2980b9;
+    }
+
+    .info-main-div a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+{% if username %}
+    <div class="info-main-div">
+        <div class="main_text">
+            <h1>Ласкаво просимо, {{ username }}!</h1>
+            <p>Ти успішно зайшов на цю сторінку</p>
+        </div><br><br><hr><br>
+
+        <form action="{{ url_for('setCookie') }}" method="POST">
+            <h3 class="text-center">Встановити куку</h3>
+            <div>
+                <label for="key" class="form-label mt-4">Ключ</label>
+                <input type="text" class="form-control" id="key" name="key"  placeholder="Ключ">
+                <label for="value" class="form-label mt-4">Значення</label>
+                <input type="text" class="form-control" id="value" name="value" placeholder="Значення">
+            </div>
+            <div>
+                <label for="days" class="form-label mt-4">Термін дії (у днях)</label>
+                <input type="number" class="form-control" id="days" name="days" placeholder="1">
+            </div>
+            <br><br>
+            <button type="submit">Встановити куку</button>
+        </form><br><br><hr><br>
+
+        <form action="{{ url_for('deleteCookieByKey') }}" method="POST">
+            <h3 class="text-center">Видалити куку</h3>
+            <div>
+                <label for="key" class="form-label mt-4">Ключ</label>
+                <input type="text" class="form-control" id="key" name="key"  placeholder="Ключ" required>
+            </div>
+            <br>
+            <button type="submit">Видалити за ключем</button>
+        </form>
+        <form action="{{ url_for('deleteCookieAll') }}" method="POST">
+            <button type="submit">Видалити всі</button>
+        </form><br><br><hr><br>
+
+        <h3 class="text-center">Куки</h3>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Ключ</th>
+                <th scope="col">Значення</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for key, value in cookies.items() %}
+                    <tr class="table-dark">
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+        <br><br><hr><br>
+
+        <h3 class="text-center">Поміняти пароль:</h3>
+        <form method="post" action="{{ url_for('change_password') }}">
+            <label for="new_password">Введіть новий пароль:</label>
+            <input type="password" name="new_password" required><br><br>
+            <button type="submit">Змінити</button>
+        </form><br><br><hr><br>
+
+        <a href="{{ url_for('logout') }}" class="text-center">Вийти</a><br><br>
+    </div>
+{% else %}
+    <p class="text-center">Ви не увійшли. Будь ласка, <a href="{{ url_for('login_page') }}">увійдіть</a> спочатку.</p>
+{% endif %}
+
+<script>
+    function clearInput(action) {
+        document.getElementById(action).value = '';
+    }
+</script>
+
+{% endblock %}
